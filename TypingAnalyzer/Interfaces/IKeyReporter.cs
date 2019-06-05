@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using TypingAnalyzer.Window;
+using System.Threading.Tasks.Dataflow;
+using TypingAnalyzer.Core;
 
 namespace TypingAnalyzer.Interfaces
 {
-    public interface IActiveWindowHandler
+    public interface IKeyReporter
     {
-        ActiveWindow GetActiveWindow();
+        void Start();
     }
 }

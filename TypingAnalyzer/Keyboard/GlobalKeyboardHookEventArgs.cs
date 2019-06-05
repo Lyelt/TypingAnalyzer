@@ -2,20 +2,23 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
+using System.Windows.Forms;
 using TypingAnalyzer.Interfaces;
 
 namespace TypingAnalyzer.Keyboard
 {
     public class GlobalKeyboardHookEventArgs : HandledEventArgs
     {
-        public KeyboardState KeyboardState { get; private set; }
-        public string PressedKey { get; private set; }
-        public char? ModifiedPressedKey { get; private set; }
+        public int VirtualKeyCode { get; }
 
-        public GlobalKeyboardHookEventArgs(string key, char? modifiedKey, KeyboardState keyboardState)
+        public KeyboardState KeyboardState { get; }
+
+        public string PressedKey { get; }
+
+        public GlobalKeyboardHookEventArgs(int vKeyCode, string key, KeyboardState keyboardState)
         {
+            VirtualKeyCode = vKeyCode;
             PressedKey = key;
-            ModifiedPressedKey = modifiedKey;
             KeyboardState = keyboardState;
         }
     }

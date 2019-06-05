@@ -56,8 +56,8 @@ namespace TypingAnalyzer.Keyboard
                 LowLevelKeyboardInputEvent p = (LowLevelKeyboardInputEvent)o;
                 KeyboardState state = (KeyboardState)wparamTyped;
 
-                string keyData = GetCharsFromKeys((uint)p.VirtualCode, false);
-                var eventArguments = new GlobalKeyboardHookEventArgs(keyData, null, state);
+                string keyData = GetCharsFromKeys((uint)p.VirtualCode, (Control.ModifierKeys & Keys.Shift) == Keys.Shift);
+                var eventArguments = new GlobalKeyboardHookEventArgs(p.VirtualCode, keyData, state);
                 KeyboardPressed?.Invoke(this, eventArguments);
                 fEatKeyStroke = eventArguments.Handled;
             }
