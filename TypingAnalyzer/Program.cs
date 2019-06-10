@@ -12,6 +12,8 @@ using System.Windows.Forms;
 using TypingAnalyzer.Keyboard;
 using TypingAnalyzer.Interfaces;
 using TypingAnalyzer.Window;
+using TypingAnalyzer.Core;
+using TypingAnalyzer.Reporters;
 
 namespace TypingAnalyzer
 {
@@ -53,6 +55,9 @@ namespace TypingAnalyzer
             services.AddSingleton<ILoggerFactory>(s => new SerilogLoggerFactory(Log.Logger));
             services.AddSingleton(configuration);
 
+            services.AddSingleton<IKeyProcessor, KeyProcessor>();
+            services.AddTransient<IActiveWord, ActiveWord>();
+            services.AddTransient<IKeyReporter, KeyStatsReporter>();
             services.AddTransient<IGlobalKeyboardHook, GlobalKeyboardHook>();
             services.AddTransient<IActiveWindowHandler, ActiveWindowHandler>();
             services.AddTransient<Analyzer>();

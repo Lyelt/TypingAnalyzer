@@ -36,6 +36,9 @@ namespace TypingAnalyzer.Core
         private void ConfigureStateMachine()
         {
             _stateMachine.Configure(WordState.NotStarted)
+                .Ignore(KeypressTrigger.Deletion)
+                .Ignore(KeypressTrigger.Punctuation)
+                .Ignore(KeypressTrigger.Whitespace)
                 .OnEntryFrom(_deletionTrigger, data => ResetWord())
                 .Permit(KeypressTrigger.Alphanumeric, WordState.Started)
                 .Permit(KeypressTrigger.Symbol, WordState.Started);

@@ -60,7 +60,7 @@ namespace TypingAnalyzer
                 var key = (Keys)e.VirtualKeyCode;
 
                 if (_config.GetValue("Keypresses:LogKeyPresses", true))
-                    _logger.LogTrace($"Received keypress: [{e.PressedKey}] (Key: {key}) while window [{window.HostProcess.ProcessName}] was in focus.");
+                    _logger.LogTrace($"Received keypress: [{e.PressedKey}] (Key: {key}) while window [{window?.HostProcess?.ProcessName}] was in focus.");
 
                 await _processor.Feed(new KeyData(key, e.PressedKey, window, DateTime.UtcNow));
             }

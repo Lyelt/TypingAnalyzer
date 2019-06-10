@@ -19,11 +19,10 @@ namespace TypingAnalyzer.Core
         public KeyProcessor(IActiveWord activeWord)
         {
             _activeWord = activeWord;
-            _incomingKeyPresses = new TransformBlock<KeyData, KeyData>(ProcessKey);
-            _incomingCompletedWords = new TransformBlock<KeyData, CompletedWord>(ProcessWord);
+            _incomingKeyPresses = new BroadcastBlock<KeyData>(ProcessKey);
+            _incomingCompletedWords = new TransformManyBlock<KeyData, CompletedWord>(ProcessWord);
 
-            _incomingKeyPresses.LinkTo(_incomingCompletedWords, _ => _activeWord.IsComplete);
-            _incomingCompletedWords.LinkTo(DataflowBlock.NullTarget<CompletedWord>());
+            _incomingKeyPresses.LinkTo(_incomingCompletedWords);
         }
 
         public async Task Feed(KeyData keyData) => await _incomingKeyPresses.SendAsync(keyData);
@@ -48,9 +47,11 @@ namespace TypingAnalyzer.Core
             return keyData;
         }
 
-        private CompletedWord ProcessWord(KeyData keyData)
+        private IEnumerable<CompletedWord> ProcessWord(KeyData keyData)
         {
-            return new CompletedWord(_activeWord.CurrentData, keyData.Window, DateTime.UtcNow);
+            return _activeWord.IsComplete ?
+                Enumerable.Repeat(new CompletedWord(_activeWord.CurrentData, keyData.Window, DateTime.UtcNow), 1) :
+                Enumerable.Empty<CompletedWord>();
         }
     }
 }
