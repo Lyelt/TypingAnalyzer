@@ -53,6 +53,8 @@ namespace TypingAnalyzer.Reporters
                 _logger.LogTrace($"Word {key} has been seen {count} times.");
                 return count;
             });
+
+            
         }
     }
 }

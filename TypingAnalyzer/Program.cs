@@ -58,6 +58,7 @@ namespace TypingAnalyzer
             services.AddSingleton<IKeyProcessor, KeyProcessor>();
             services.AddTransient<IActiveWord, ActiveWord>();
             services.AddTransient<IKeyReporter, KeyStatsReporter>();
+            services.AddTransient<IKeyReporter, ContinuousStreamReporter>();
             services.AddTransient<IGlobalKeyboardHook, GlobalKeyboardHook>();
             services.AddTransient<IActiveWindowHandler, ActiveWindowHandler>();
             services.AddTransient<Analyzer>();
