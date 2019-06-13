@@ -23,11 +23,6 @@ namespace TypingAnalyzer.Reporters
             _streamFile = _config.GetValue("Reporting:ContinuousStreamFile", "KeyStream.txt");
         }
 
-        protected override async Task ReportCompletedWord(CompletedWord data)
-        {
-            await Task.CompletedTask;
-        }
-
         protected override async Task ReportKeyData(KeyData data)
         {
             _logger.LogTrace($"Reporting continuous data [{data.Data}] to file [{_streamFile}]");

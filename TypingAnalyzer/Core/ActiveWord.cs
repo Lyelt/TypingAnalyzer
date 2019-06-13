@@ -125,7 +125,6 @@ namespace TypingAnalyzer.Core
         }
     }
 
-
     public enum KeypressTrigger
     {
         Alphanumeric,

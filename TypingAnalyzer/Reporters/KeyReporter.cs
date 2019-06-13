@@ -27,8 +27,14 @@ namespace TypingAnalyzer.Reporters
             _processor.SubscribeToWords(_completedWordBlock);
         }
 
-        protected abstract Task ReportKeyData(KeyData data);
+        protected virtual async Task ReportKeyData(KeyData data)
+        {
+            await Task.CompletedTask;
+        }
 
-        protected abstract Task ReportCompletedWord(CompletedWord data);
+        protected virtual async Task ReportCompletedWord(CompletedWord data)
+        {
+            await Task.CompletedTask;
+        }
     }
 }
